@@ -4,7 +4,7 @@ const db = require('../DBHelper');
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, 'public/uploads/')
+    cb(null, 'public/upload/')
   },
   filename: function (req, file, cb) {
     const fileFormat = 'pdf'; 
@@ -15,13 +15,14 @@ const upload = multer({ storage: storage });
 router.post('/pdf', upload.any() , async (ctx, next) => {
   let o = {};
   const param = ctx.url.split('?');
-  const p = param.split('&').forEach((it) => {
+  const p = param[1].split('&').forEach((it) => {
     const res = it.split('=');
     o[res[0]] = res[1];
   });
   const instance = {
     name: ctx.req.files[0].filename,
     path: '/upload/' + ctx.req.files[0].filename,
+    ori: ctx.req.files[0].originalname,
     ...o
   };
   db.get('data')
@@ -29,7 +30,7 @@ router.post('/pdf', upload.any() , async (ctx, next) => {
     .write();
   
   ctx.body = {
-    filename: ctx.req.files[0].filename,
+    path: instance.path
   }
 });
 

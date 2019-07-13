@@ -9,7 +9,7 @@ Helper for constructing Data Base
 const defaultItem = {users:[{username:'', password:'', uuid: '', session:''}], 
                     media:[{vid: '', cover:'', isDone: false, url:'', desc:'',title:''}],
                     attachment: [{time: 0, question: '', comments: [], vid: '', qid: ''}],
-                    data:[{name:'', path:'', page: '', vid: ''}]
+                    data:[{name:'', path:'', page: '', vid: '', ori: ''}]
                 };
 
 db.defaults(defaultItem)

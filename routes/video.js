@@ -13,8 +13,9 @@ router.get('/', async (ctx, next) => {
     const v = db.get('media').find({vid}).value();
     // v.url
     const comments = db.get('attachment').filter({vid}).value();
-    console.log({v, comments})
-    ctx.body = {v, comments};
+    const attachments = db.get('data').filter({vid}).value();
+    console.log({v, comments, attachments})
+    ctx.body = {v, comments, attachments};
 });
 
 router.post('/', async (ctx, next) => {
